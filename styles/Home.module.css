@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Tomorrow:ital,wght@1,700&display=swap");
+
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
@@ -32,6 +34,7 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  font-family: "DotGothic16", sans-serif;
 }
 
 .title,
