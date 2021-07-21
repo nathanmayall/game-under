@@ -3,3 +3,8 @@
   height: 3rem;
   border-radius: 0.5rem;
 }
+.icon {
+  position: relative;
+  bottom: 2.2rem;
+  left: 15rem;
+}
