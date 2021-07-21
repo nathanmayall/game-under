@@ -3,11 +3,15 @@ import styles from "../styles/Home.module.css";
 
 import { googleAuthProvider, auth } from "../components/firebase";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const signInWithGoogle = async () => {
   auth.signInWithPopup(googleAuthProvider);
 };
 
 export default function Home() {
+  const [user] = useAuthState(auth);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -20,24 +24,26 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to GameUnder</h1>
+        <h1 className={styles.title}>GameUnder</h1>
 
         <p className={styles.description}>
-          It's GameOver to paying ripoff prices
-          {/* <code className={styles.code}>Go</code> */}
+          It's <code className={styles.code}>GameOver</code> to paying ripoff
+          prices
         </p>
 
         <div className={styles.grid}>
           <div href="" className={styles.card}>
-            <h2>Login/Register &rarr;</h2>
-            <button onClick={signInWithGoogle}>
-              Use Google Auth to Login/Register
-            </button>
+            <h2>{user ? "Sign Out" : "Sign In"} &rarr;</h2>
+            {user ? (
+              <button onClick={() => auth.signOut()}>Sign Out</button>
+            ) : (
+              <button onClick={signInWithGoogle}>
+                Use Google Auth to Login/Register
+              </button>
+            )}
           </div>
         </div>
       </main>
-
-      <footer className={styles.footer}>© GameUnder 2021</footer>
     </div>
   );
 }
