@@ -23,7 +23,7 @@ export default function Home() {
         <h1 className={styles.title}>Welcome to GameUnder</h1>
 
         <p className={styles.description}>
-          It's Game Over to paying ripoff prices
+          It's GameOver to paying ripoff prices
           {/* <code className={styles.code}>Go</code> */}
         </p>
 
