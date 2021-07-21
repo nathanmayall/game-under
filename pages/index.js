@@ -9,6 +9,8 @@ const signInWithGoogle = async () => {
   auth.signInWithPopup(googleAuthProvider);
 };
 
+import SearchBar from "../components/SearchBar";
+
 export default function Home() {
   const [user] = useAuthState(auth);
 
@@ -30,6 +32,7 @@ export default function Home() {
           It's <code className={styles.code}>GameOver</code> to paying ripoff
           prices
         </p>
+        <SearchBar />
 
         <div className={styles.grid}>
           <div href="" className={styles.card}>
