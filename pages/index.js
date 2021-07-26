@@ -1,41 +1,49 @@
-import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
+import { fireStore } from "../components/firebase";
+
 import SearchBar from "../components/SearchBar";
+import GameCard from "../components/GameCard";
 
-export default function Home() {
+import dummyData from "../AllSteamApps.json";
+
+export default function Home({ games }) {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>GameUnder</title>
-        <meta
-          name="description"
-          content="It's Game Over to paying rip-off Prices!"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <main className={styles.main}>
+      <h1 className={styles.title}>GameUnder</h1>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>GameUnder</h1>
+      <p className={styles.description}>
+        It's <code className={styles.code}>GameOver</code> to paying ripoff
+        prices
+      </p>
+      <SearchBar />
 
-        <p className={styles.description}>
-          It's <code className={styles.code}>GameOver</code> to paying ripoff
-          prices
-        </p>
-        <SearchBar />
-
-        <div className={styles.grid}>
-          <div href="" className={styles.card}>
-            <h2>Market 1</h2>
-          </div>
-          <div href="" className={styles.card}>
-            <h2>Market 2</h2>
-          </div>
-          <div href="" className={styles.card}>
-            <h2>Market 3</h2>
-          </div>
-        </div>
-      </main>
-    </div>
+      <div className={styles.grid}>
+        {games?.map((game) => (
+          <GameCard
+            key={game.appID + game.name + new Date().getTime()}
+            game={game}
+          />
+        ))}
+      </div>
+    </main>
   );
+}
+
+export async function getServerSideProps() {
+  const gamesRef = fireStore.collection("games");
+  let games = [];
+
+  const snapshot = await gamesRef.orderBy("name").limit(4).get();
+  if (snapshot.empty) {
+    console.log("No Games");
+  } else {
+    snapshot.forEach((doc) => {
+      games.push(doc.data());
+    });
+  }
+
+  return {
+    props: { games }, // will be passed to the page component as props
+  };
 }
