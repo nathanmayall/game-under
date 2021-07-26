@@ -1,19 +1,9 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-import { googleAuthProvider, auth } from "../components/firebase";
-
-import { useAuthState } from "react-firebase-hooks/auth";
-
-const signInWithGoogle = async () => {
-  auth.signInWithPopup(googleAuthProvider);
-};
-
 import SearchBar from "../components/SearchBar";
 
 export default function Home() {
-  const [user] = useAuthState(auth);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -36,14 +26,13 @@ export default function Home() {
 
         <div className={styles.grid}>
           <div href="" className={styles.card}>
-            <h2>{user ? "Sign Out" : "Sign In"} &rarr;</h2>
-            {user ? (
-              <button onClick={() => auth.signOut()}>Sign Out</button>
-            ) : (
-              <button onClick={signInWithGoogle}>
-                Use Google Auth to Login/Register
-              </button>
-            )}
+            <h2>Market 1</h2>
+          </div>
+          <div href="" className={styles.card}>
+            <h2>Market 2</h2>
+          </div>
+          <div href="" className={styles.card}>
+            <h2>Market 3</h2>
           </div>
         </div>
       </main>
