@@ -1,4 +1,5 @@
 import styles from "../styles/GameCard.module.css";
+import Link from "next/link";
 
 const gameCard = ({ game }) => {
   const { name, steamID, is_free, hasPriceOverview } = game;
@@ -10,11 +11,13 @@ const gameCard = ({ game }) => {
     }).format(hasPriceOverview?.final / 100) || null;
 
   return (
-    <div className={styles.card}>
-      <h2>{name}</h2>
-      <p>Price: {is_free ? "Free ✔!" : formattedPrice}</p>
-      <small>Steam ID: {steamID}</small>
-    </div>
+    <Link href={`/games/${steamID}`}>
+      <div className={styles.card}>
+        <h2>{name}</h2>
+        <p>Price: {is_free ? "Free ✔!" : formattedPrice}</p>
+        <small>Steam ID: {steamID}</small>
+      </div>
+    </Link>
   );
 };
 

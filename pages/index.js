@@ -5,8 +5,6 @@ import { fireStore } from "../components/firebase";
 import SearchBar from "../components/SearchBar";
 import GameCard from "../components/GameCard";
 
-import dummyData from "../AllSteamApps.json";
-
 export default function Home({ games }) {
   return (
     <main className={styles.main}>
