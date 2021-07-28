@@ -11,7 +11,7 @@ const gameCard = ({ game }) => {
     }).format(hasPriceOverview?.final / 100) || null;
 
   return (
-    <Link href={`/games/${steamID}`}>
+    <Link href={`/games/${steamID}`} passHref>
       <div className={styles.card}>
         <h2>{name}</h2>
         <p>Price: {is_free ? "Free ✔!" : formattedPrice}</p>
