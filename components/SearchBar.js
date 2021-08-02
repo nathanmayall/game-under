@@ -11,7 +11,7 @@ const SearchBar = () => {
   const [timer, setTimer] = useState(null);
 
   useEffect(() => {
-    if (gameSearch.trim() === "") {
+    if (gameSearch.trim() === "" || gameSearch.length === 0) {
       setGameSearch("");
       setResults([]);
       return;
@@ -31,8 +31,10 @@ const SearchBar = () => {
             .where("name", "<=", gameSearch + "\uf8ff")
             .limit(6)
             .get();
+
           if (snapshot.empty) {
             console.log("No games found");
+            console.log(gameSearch);
             return;
           }
           const resultsArray = [];

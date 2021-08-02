@@ -44,6 +44,7 @@ const GamesPage = ({ game, error }) => {
 };
 
 export default GamesPage;
+
 export const getServerSideProps = async (context) => {
   try {
     if (!context.params.id) return;
