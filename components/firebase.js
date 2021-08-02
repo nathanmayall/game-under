@@ -19,3 +19,27 @@ if (firebase.apps.length === 0) {
 export const auth = firebase.auth();
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const fireStore = firebase.firestore();
+
+export const createUserDocument = async (user) => {
+  if (!user) return;
+
+  const userRef = fireStore.doc(`users/${user.uid}`);
+
+  const snapshot = await userRef.get();
+
+  if (!snapshot.exists) {
+    const { email, uid, photoURL, displayName } = user;
+    try {
+      userRef.set({
+        displayName,
+        email,
+        photoURL,
+        uid,
+        createdAt: new Date(),
+      });
+    } catch (err) {
+      console.log("Error creating user: ", err);
+    }
+  }
+  return;
+};
