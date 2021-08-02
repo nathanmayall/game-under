@@ -23,7 +23,7 @@ const GamesPage = ({ game, error }) => {
         <h3>Developers:</h3>
         <ul>
           {developers.map((d) => (
-            <li>{d}</li>
+            <li key={d}>{d}</li>
           ))}
         </ul>
       </div>
@@ -31,7 +31,7 @@ const GamesPage = ({ game, error }) => {
         <h3>Platforms:</h3>
         <ul>
           {Object.keys(platforms).map((p) => (
-            <li>{p}</li>
+            <li key={p}>{p}</li>
           ))}
         </ul>
       </div>
