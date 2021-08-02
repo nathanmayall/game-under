@@ -1,4 +1,4 @@
-import examplegame from "../../exampleresponse.json";
+import axios from "axios";
 import styles from "../../styles/GamePage.module.css";
 
 const GamesPage = ({ game, error }) => {
@@ -11,6 +11,7 @@ const GamesPage = ({ game, error }) => {
     platforms,
     appID,
   } = game;
+
   return (
     <div className={styles.main}>
       <img src={header_image} />
@@ -46,11 +47,15 @@ export default GamesPage;
 export const getServerSideProps = async (context) => {
   try {
     if (!context.params.id) return;
-
+    const appID = context.params.id;
+    const { data: game } = await axios(
+      `https://api.steamapis.com/market/app/${appID}?api_key=${process.env.STEAM_API_KEY}`
+    );
     return {
-      props: { game: examplegame },
+      props: { game },
     };
   } catch (error) {
+    console.log(error);
     return {
       props: { error: "Something Went Wrong" },
     };
