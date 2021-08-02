@@ -46,11 +46,15 @@ export default GamesPage;
 export const getServerSideProps = async (context) => {
   try {
     if (!context.params.id) return;
-
+    const appID = context.params.id;
+    const { data: game } = await axios(
+      `https://api.steamapis.com/market/app/${appID}?api_key=${process.env.STEAM_API_KEY}`
+    );
     return {
-      props: { game: examplegame },
+      props: { game },
     };
   } catch (error) {
+    console.log(error);
     return {
       props: { error: "Something Went Wrong" },
     };
