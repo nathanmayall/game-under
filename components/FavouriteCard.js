@@ -5,13 +5,16 @@ import styles from "../styles/FavouriteCard.module.css";
 const FavouriteCard = ({ appID }) => {
   const [favData, setFavData] = useState({});
 
-  useEffect(async () => {
+  useEffect(() => {
+    getFavInfo(appID);
+  }, [appID]);
+
+  const getFavInfo = async (appID) => {
     const { data } = await axios(
       `https://api.steamapis.com/market/app/${appID}?api_key=zSQo-hIrr3nUU5T__NbF8Bc_Y1w`
     );
     setFavData(data);
-    console.log(favData);
-  }, []);
+  };
 
   const {
     header_image,
