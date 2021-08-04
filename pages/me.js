@@ -3,22 +3,26 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, fireStore } from "../components/firebase";
 import styles from "../styles/me.module.css";
-import axios from "axios";
 
 const Me = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
-  useEffect(() => {
-    if (!user) router.push("/");
-  }, []);
   const [favourites, setFavourites] = useState([]);
-  setFavourites(await getFavourites(user));
+  useEffect(async () => {
+    const res = await getFavourites(user);
+
+    setFavourites(res);
+
+    console.log(favourites);
+  }, []);
   return (
     <div>
       Welcome, {user ? user.displayName : "Gamer"}
-      {favourites.map((f) => {
-        return <p>{f.appID}</p>;
-      })}
+      {favourites ? (
+        favourites.map((f) => <p key={f.appID}>{f.appID}</p>)
+      ) : (
+        <p>No Favourites found</p>
+      )}
     </div>
   );
 };
@@ -26,23 +30,18 @@ export default Me;
 
 const getFavourites = async (user) => {
   try {
+    const resultsArray = [];
     const Favourites = fireStore.collection("favourites");
 
     const snapshot = await Favourites.where("uid", "==", user.uid).get();
+    if (snapshot.empty) return;
 
-    const resultsArray = [];
     snapshot.forEach((doc) => {
-      const data = doc.data();
-      resultsArray.push(data);
+      resultsArray.push(doc.data());
     });
-    console.log(resultsArray);
-    return {
-      props: { favourites: resultsArray },
-    };
+    return resultsArray;
   } catch (error) {
     console.log(error);
-    return {
-      props: { error: "Something Went Wrong" },
-    };
+    return { error: "Something Went Wrong" };
   }
 };
