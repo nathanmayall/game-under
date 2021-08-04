@@ -19,3 +19,21 @@ if (firebase.apps.length === 0) {
 export const auth = firebase.auth();
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const fireStore = firebase.firestore();
+
+export const getFavourites = async (user) => {
+  try {
+    const resultsArray = [];
+    const Favourites = fireStore.collection("favourites");
+
+    const snapshot = await Favourites.where("uid", "==", user.uid).get();
+    if (snapshot.empty) return;
+
+    snapshot.forEach((doc) => {
+      resultsArray.push(doc.data());
+    });
+    return resultsArray;
+  } catch (error) {
+    console.log(error);
+    return { error: "Something Went Wrong" };
+  }
+};
