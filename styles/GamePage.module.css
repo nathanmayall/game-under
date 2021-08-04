@@ -10,8 +10,16 @@
 .main h3 {
   text-align: left;
 }
-.bold {
-  font-weight: 900;
+.title {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.title button {
+  height: 75%;
+  width: 75%;
+  margin-left: 1rem;
 }
 .developers {
   width: 100%;

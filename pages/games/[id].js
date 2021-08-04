@@ -2,11 +2,17 @@ import axios from "axios";
 import Image from "next/image";
 import styles from "../../styles/GamePage.module.css";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { fireStore, auth } from "../../components/firebase";
+
 import DOMPurify from "isomorphic-dompurify";
 
-import { priceFormatter } from "../../utils/PriceFormatter";
+import priceFormatter from "../../utils/PriceFormatter";
 
 const GamesPage = ({ game, error }) => {
+  const [user] = useAuthState(auth);
+
   const {
     header_image,
     name,
@@ -17,13 +23,37 @@ const GamesPage = ({ game, error }) => {
     platforms,
     appID,
     price_overview,
+    release_date,
   } = game;
+
+  const addOrRemoveFavourite = async (user, appID) => {
+    const favesRef = fireStore.collection("favourites");
+
+    const alreadyInFaves = await favesRef
+      .where("uid", "==", user.uid)
+      .where("appID", "==", appID)
+      .get();
+
+    if (alreadyInFaves.empty) {
+      await favesRef.add({ uid: user.uid, appID });
+      console.log("fave added");
+      return;
+    }
+
+    alreadyInFaves.forEach(async (doc) => await favesRef.doc(doc.id).delete());
+  };
 
   return (
     <div className={styles.main}>
       <Image src={header_image} alt="" width={460} height={215} />
-      <h1 className={styles.bold}>{name}</h1>
+      <div className={styles.title}>
+        <h1>{name}</h1>
+        <button onClick={() => addOrRemoveFavourite(user, appID)}>
+          Add To Favourites
+        </button>
+      </div>
       <div>
+        {price_overview && <h1>{priceFormatter(price_overview)}</h1>}
         <h3>Description:</h3>
         <div className={styles.description}>
           <div
@@ -31,7 +61,6 @@ const GamesPage = ({ game, error }) => {
               __html: DOMPurify.sanitize(detailed_description),
             }}
           />
-          {price_overview && <h2>{priceFormatter(price_overview)}</h2>}
         </div>
       </div>
       <div className={styles.developers}>
@@ -61,7 +90,9 @@ const GamesPage = ({ game, error }) => {
         </ul>
       </div>
       <div>
-        <h3>{appID}</h3>
+        {release_date && release_date.date && (
+          <h3>Released: {release_date.date}</h3>
+        )}
       </div>
     </div>
   );
@@ -76,7 +107,6 @@ export const getServerSideProps = async (context) => {
     const { data: game } = await axios(
       `https://api.steamapis.com/market/app/${appID}?api_key=${process.env.STEAM_API_KEY}`
     );
-    console.log(game);
     return {
       props: { game },
     };
