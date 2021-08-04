@@ -1,5 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "../../styles/GamePage.module.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -12,6 +13,7 @@ import priceFormatter from "../../utils/PriceFormatter";
 
 const GamesPage = ({ game, error }) => {
   const [user] = useAuthState(auth);
+  const [favourite, setFavourite] = useState(false);
 
   const {
     header_image,
@@ -26,6 +28,26 @@ const GamesPage = ({ game, error }) => {
     release_date,
   } = game;
 
+  useEffect(() => {
+    getFavourite(user);
+  }, [user, favourite]);
+
+  const getFavourite = async (user) => {
+    const favesRef = fireStore.collection("favourites");
+
+    const alreadyInFaves = await favesRef
+      .where("uid", "==", user.uid)
+      .where("appID", "==", appID)
+      .get();
+
+    if (!alreadyInFaves.empty) {
+      setFavourite(true);
+      return;
+    }
+    setFavourite(false);
+    return;
+  };
+
   const addOrRemoveFavourite = async (user, appID) => {
     const favesRef = fireStore.collection("favourites");
 
@@ -37,10 +59,14 @@ const GamesPage = ({ game, error }) => {
     if (alreadyInFaves.empty) {
       await favesRef.add({ uid: user.uid, appID });
       console.log("fave added");
+      setFavourite(true);
       return;
     }
 
-    alreadyInFaves.forEach(async (doc) => await favesRef.doc(doc.id).delete());
+    alreadyInFaves.forEach(async (doc) => {
+      await favesRef.doc(doc.id).delete();
+      setFavourite(false);
+    });
   };
 
   return (
@@ -49,7 +75,7 @@ const GamesPage = ({ game, error }) => {
       <div className={styles.title}>
         <h1>{name}</h1>
         <button onClick={() => addOrRemoveFavourite(user, appID)}>
-          Add To Favourites
+          {favourite ? "Remove from" : "Add To"} Favourites
         </button>
       </div>
       <div>
