@@ -5,7 +5,7 @@ import styles from "../../styles/GamePage.module.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { fireStore, auth } from "../../components/firebase";
+import { fireStore, auth, googleAuthProvider } from "../../components/firebase";
 
 import DOMPurify from "isomorphic-dompurify";
 
@@ -29,7 +29,7 @@ const GamesPage = ({ game, error }) => {
   } = game;
 
   useEffect(() => {
-    getFavourite(user);
+    if (user) getFavourite(user);
   }, [user, favourite]);
 
   const getFavourite = async (user) => {
@@ -50,6 +50,12 @@ const GamesPage = ({ game, error }) => {
 
   const addOrRemoveFavourite = async (user, appID) => {
     const favesRef = fireStore.collection("favourites");
+
+    const signInWithGoogle = async () => {
+      auth.signInWithPopup(googleAuthProvider);
+    };
+
+    if (!user) return signInWithGoogle();
 
     const alreadyInFaves = await favesRef
       .where("uid", "==", user.uid)
