@@ -1,14 +1,14 @@
 import styles from "../styles/GameCard.module.css";
 import Link from "next/link";
 
+import priceFormatter from "../utils/PriceFormatter";
+
 const gameCard = ({ game }) => {
   const { name, steamID, is_free, hasPriceOverview } = game;
-
-  const formattedPrice =
-    new Intl.NumberFormat("en-GB", {
-      style: "currency",
-      currency: hasPriceOverview?.currency || "USD",
-    }).format(hasPriceOverview?.final / 100) || null;
+  let formattedPrice = undefined;
+  if (hasPriceOverview) {
+    formattedPrice = priceFormatter(hasPriceOverview);
+  }
 
   return (
     <Link href={`/games/${steamID}`} passHref>

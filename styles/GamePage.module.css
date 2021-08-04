@@ -4,7 +4,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: min-content;
+  flex-grow: 1;
 }
 .main h3 {
   text-align: left;
@@ -17,4 +18,12 @@
 }
 .platforms {
   width: 100%;
+}
+.publishers {
+  width: 100%;
+}
+
+.description {
+  /* height: 10vh; */
+  overflow: hidden;
 }
