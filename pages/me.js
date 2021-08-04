@@ -6,19 +6,16 @@ import styles from "../styles/me.module.css";
 
 const Me = () => {
   const router = useRouter();
-  const [user] = useAuthState(auth);
   const [favourites, setFavourites] = useState([]);
+  const [user] = useAuthState(auth);
   useEffect(async () => {
     const res = await getFavourites(user);
-
     setFavourites(res);
-
-    console.log(favourites);
-  }, []);
+  }, [user]);
   return (
     <div>
       Welcome, {user ? user.displayName : "Gamer"}
-      {favourites ? (
+      {favourites.length > 0 ? (
         favourites.map((f) => <p key={f.appID}>{f.appID}</p>)
       ) : (
         <p>No Favourites found</p>
