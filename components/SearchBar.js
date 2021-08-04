@@ -17,6 +17,7 @@ const SearchBar = () => {
       return;
     }
     searchGames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameSearch]);
 
   const searchGames = async () => {
