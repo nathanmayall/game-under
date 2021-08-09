@@ -35,7 +35,6 @@ const SearchBar = () => {
 
           if (snapshot.empty) {
             console.log("No games found");
-            console.log(gameSearch);
             return;
           }
           const resultsArray = [];
@@ -44,7 +43,6 @@ const SearchBar = () => {
             resultsArray.push(data);
           });
           setResults(resultsArray);
-          console.log(gameSearch);
         } catch (err) {
           console.log(err);
         }
