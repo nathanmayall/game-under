@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { fireStore } from "./firebase";
 
 import styles from "../styles/SearchBar.module.css";
 
-const SearchBar = () => {
-  const [gameSearch, setGameSearch] = useState("");
+const SearchBar = ({ search }) => {
+  const router = useRouter();
+  const [gameSearch, setGameSearch] = useState(search || "");
   const [results, setResults] = useState([]);
   const [timer, setTimer] = useState(null);
 
@@ -16,7 +18,7 @@ const SearchBar = () => {
       setResults([]);
       return;
     }
-    searchGames();
+    if (router.pathname === "/") searchGames();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameSearch]);
 
@@ -57,9 +59,15 @@ const SearchBar = () => {
         value={gameSearch}
         onChange={(e) => setGameSearch(e.target.value)}
         className={styles.input}
+        onSubmit={() => router.push(`/search?gameSearch=${gameSearch}`)}
       />
-      <span className={styles.icon}>🔎</span>
-      {results.length > 0 && (
+      <span
+        onClick={() => router.push(`/search?gameSearch=${gameSearch}`)}
+        className={styles.icon}
+      >
+        🔎
+      </span>
+      {results.length > 0 && router.pathname === "/" ? (
         <>
           <div className={styles.results}>
             {results?.map((r) => (
@@ -71,7 +79,7 @@ const SearchBar = () => {
             ))}
           </div>
         </>
-      )}
+      ) : null}
     </div>
   );
 };
