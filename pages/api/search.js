@@ -21,7 +21,6 @@ searchHandler.get(async (req, res) => {
     const snapshot = await gamesRef
       .where("name", ">=", gameSearch)
       .where("name", "<=", gameSearch + "\uf8ff")
-      .limit(6)
       .get();
 
     if (snapshot.empty) {
