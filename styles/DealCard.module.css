@@ -1,0 +1,15 @@
+.container {
+  width: 40%;
+  display: flex;
+  background-color: darkslategray;
+  padding: 0.5rem 1rem;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  color: white;
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+.link {
+  cursor: pointer;
+}

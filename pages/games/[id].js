@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import DealCard from "../../components/DealCard";
 
 const GamesPage = ({ game, error }) => {
   const [user] = useAuthState(auth);
@@ -31,7 +32,7 @@ const GamesPage = ({ game, error }) => {
     appID,
     price_overview,
     release_date,
-  } = game;
+  } = game.result;
 
   useEffect(() => {
     if (user) getFavourite(user);
@@ -93,8 +94,13 @@ const GamesPage = ({ game, error }) => {
           )}
         </button>
       </div>
+      {game.deals ? (
+        <DealCard deal={game.deals.gameInfo} />
+      ) : (
+        <p>No deals found, please check back later!</p>
+      )}
       <div>
-        {price_overview && <h1>{priceFormatter(price_overview)}</h1>}
+        {price_overview && <h1>Steam: {priceFormatter(price_overview)}</h1>}
         <h3>Description:</h3>
         <div className={styles.description}>
           <div
@@ -104,14 +110,16 @@ const GamesPage = ({ game, error }) => {
           />
         </div>
       </div>
-      <div className={styles.developers}>
-        <h3>{developers.length > 1 ? "Developers:" : "Developer:"}</h3>
-        <ul>
-          {developers.map((d) => (
-            <li key={d}>{d}</li>
-          ))}
-        </ul>
-      </div>
+      {developers && (
+        <div className={styles.developers}>
+          <h3>{developers.length > 1 ? "Developers:" : "Developer:"}</h3>
+          <ul>
+            {developers.map((d) => (
+              <li key={d}>{d}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className={styles.platforms}>
         <h3>
           {Object.keys(platforms).length > 1 ? "Platforms:" : "Platform:"}
