@@ -1,4 +1,7 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
+
 import "../styles/globals.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import "firebase/analytics";
 import "firebase/auth";
@@ -8,6 +11,8 @@ import axios from "axios";
 
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+
+config.autoAddCss = false;
 
 axios.defaults.baseURL = process.env.APP_BASE_URL;
 

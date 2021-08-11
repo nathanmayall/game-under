@@ -11,6 +11,11 @@ import DOMPurify from "isomorphic-dompurify";
 
 import priceFormatter from "../../utils/PriceFormatter";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+
 const GamesPage = ({ game, error }) => {
   const [user] = useAuthState(auth);
   const [favourite, setFavourite] = useState(false);
@@ -81,7 +86,11 @@ const GamesPage = ({ game, error }) => {
       <div className={styles.title}>
         <h1>{name}</h1>
         <button onClick={() => addOrRemoveFavourite(user, appID)}>
-          {favourite ? "Remove from" : "Add To"} Favourites
+          {favourite ? (
+            <FontAwesomeIcon icon={faHeartSolid} />
+          ) : (
+            <FontAwesomeIcon icon={faHeart} />
+          )}
         </button>
       </div>
       <div>
