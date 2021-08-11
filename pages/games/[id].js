@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import DealCard from "../../components/DealCard";
 
 const GamesPage = ({ game, error }) => {
   const [user] = useAuthState(auth);
@@ -31,7 +32,7 @@ const GamesPage = ({ game, error }) => {
     appID,
     price_overview,
     release_date,
-  } = game;
+  } = game.result;
 
   useEffect(() => {
     if (user) getFavourite(user);
@@ -69,7 +70,6 @@ const GamesPage = ({ game, error }) => {
 
     if (alreadyInFaves.empty) {
       await favesRef.add({ uid: user.uid, appID });
-      console.log("fave added");
       setFavourite(true);
       return;
     }
@@ -82,7 +82,13 @@ const GamesPage = ({ game, error }) => {
 
   return (
     <div className={styles.main}>
-      <Image src={header_image} alt="" width={460} height={215} />
+      <Image
+        src={header_image}
+        alt=""
+        width={460}
+        height={215}
+        className={styles.headerImage}
+      />
       <div className={styles.title}>
         <h1>{name}</h1>
         <button onClick={() => addOrRemoveFavourite(user, appID)}>
@@ -93,8 +99,16 @@ const GamesPage = ({ game, error }) => {
           )}
         </button>
       </div>
+      {game.deals ? (
+        <DealCard
+          deal={game.cheapestDeal.gameInfo}
+          history={game.cheapestDeal.cheapestPrice}
+        />
+      ) : (
+        <p>No deals found, please check back later!</p>
+      )}
       <div>
-        {price_overview && <h1>{priceFormatter(price_overview)}</h1>}
+        {price_overview && <h1>Steam: {priceFormatter(price_overview)}</h1>}
         <h3>Description:</h3>
         <div className={styles.description}>
           <div
@@ -104,14 +118,16 @@ const GamesPage = ({ game, error }) => {
           />
         </div>
       </div>
-      <div className={styles.developers}>
-        <h3>{developers.length > 1 ? "Developers:" : "Developer:"}</h3>
-        <ul>
-          {developers.map((d) => (
-            <li key={d}>{d}</li>
-          ))}
-        </ul>
-      </div>
+      {developers && (
+        <div className={styles.developers}>
+          <h3>{developers.length > 1 ? "Developers:" : "Developer:"}</h3>
+          <ul>
+            {developers.map((d) => (
+              <li key={d}>{d}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className={styles.platforms}>
         <h3>
           {Object.keys(platforms).length > 1 ? "Platforms:" : "Platform:"}
@@ -145,9 +161,7 @@ export const getServerSideProps = async (context) => {
   try {
     if (!context.params.id) return;
     const appID = context.params.id;
-    const { data: game } = await axios(
-      `https://api.steamapis.com/market/app/${appID}?api_key=${process.env.STEAM_API_KEY}`
-    );
+    const { data: game } = await axios(`/api/games/${appID}`);
     return {
       props: { game },
     };

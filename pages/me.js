@@ -8,13 +8,18 @@ import FavouriteCard from "../components/FavouriteCard";
 const Me = () => {
   const [favourites, setFavourites] = useState([]);
   const [error, setError] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const [user] = useAuthState(auth);
+  console.log(error);
 
   useEffect(() => {
     getFavourites(user);
   }, [user]);
 
   const getFavourites = async (user) => {
+    setLoading(true);
+    setError(undefined);
+    if (!user) return;
     try {
       const resultsArray = [];
       const Favourites = fireStore.collection("favourites");
@@ -26,6 +31,7 @@ const Me = () => {
         resultsArray.push(doc.data());
       });
       setFavourites(resultsArray);
+      setLoading(false);
     } catch (error) {
       console.log(error);
       return setError({ error: "Something Went Wrong" });
@@ -35,13 +41,12 @@ const Me = () => {
   return (
     <div className={styles.main}>
       Welcome, {user ? user.displayName : "Gamer"}
-      {!error && favourites.length > 0 ? (
-        favourites.map((f) => {
-          return <FavouriteCard key={f.appID} appID={f.appID} />;
-        })
-      ) : (
-        <p>No Favourites found</p>
-      )}
+      {loading && <div>Loading...</div>}
+      {!loading && favourites.length > 0
+        ? favourites.map((f) => {
+            return <FavouriteCard key={f.appID} appID={f.appID} />;
+          })
+        : !loading && <p>No Favourites found</p>}
       {error && <p>Something went wrong</p>}
     </div>
   );
