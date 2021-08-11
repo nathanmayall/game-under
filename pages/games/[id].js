@@ -145,9 +145,7 @@ export const getServerSideProps = async (context) => {
   try {
     if (!context.params.id) return;
     const appID = context.params.id;
-    const { data: game } = await axios(
-      `https://api.steamapis.com/market/app/${appID}?api_key=${process.env.STEAM_API_KEY}`
-    );
+    const { data: game } = await axios(`/api/games/${appID}`);
     return {
       props: { game },
     };

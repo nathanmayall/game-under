@@ -5,6 +5,8 @@ export const onError = (err, req, res, next) => {
 };
 
 export const onNoMatch = (req, res) => {
-  // Handle any other HTTP method
-  res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+  // Handle any other HTTP method\
+  res
+    .status(405)
+    .json({ error: `Method '${req.method}' Not Allowed on ${req.url}` });
 };
