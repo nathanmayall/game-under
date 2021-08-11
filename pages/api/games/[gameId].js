@@ -38,7 +38,7 @@ const findOneGame = async (req, res) => {
         cheapestDeal.gameInfo.storeInfo = storeName;
         cheapestDeal.gameInfo.dealLink = `https://www.cheapshark.com/redirect?dealID=${deals[0].cheapestDealID}`;
 
-        res.status(200).send({ result, deals: cheapestDeal });
+        res.status(200).send({ result, deals, cheapestDeal });
       }
     } catch (err) {
       res.status(404).send();

@@ -36,3 +36,7 @@
   /* height: 10vh; */
   overflow: hidden;
 }
+
+.headerImage {
+  border-radius: 0.5rem;
+}

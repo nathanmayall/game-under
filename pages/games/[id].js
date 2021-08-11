@@ -70,7 +70,6 @@ const GamesPage = ({ game, error }) => {
 
     if (alreadyInFaves.empty) {
       await favesRef.add({ uid: user.uid, appID });
-      console.log("fave added");
       setFavourite(true);
       return;
     }
@@ -83,7 +82,13 @@ const GamesPage = ({ game, error }) => {
 
   return (
     <div className={styles.main}>
-      <Image src={header_image} alt="" width={460} height={215} />
+      <Image
+        src={header_image}
+        alt=""
+        width={460}
+        height={215}
+        className={styles.headerImage}
+      />
       <div className={styles.title}>
         <h1>{name}</h1>
         <button onClick={() => addOrRemoveFavourite(user, appID)}>
@@ -95,7 +100,10 @@ const GamesPage = ({ game, error }) => {
         </button>
       </div>
       {game.deals ? (
-        <DealCard deal={game.deals.gameInfo} />
+        <DealCard
+          deal={game.cheapestDeal.gameInfo}
+          history={game.cheapestDeal.cheapestPrice}
+        />
       ) : (
         <p>No deals found, please check back later!</p>
       )}
