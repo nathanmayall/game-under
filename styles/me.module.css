@@ -7,11 +7,11 @@
   flex-direction: column;
   justify-content: left;
   align-items: left;
-  height: 100vh;
+  height: min-content;
 }
 
 .main h3 {
-  text-align: left;
+  text-align: justify;
 }
 .bold {
   font-weight: 900;

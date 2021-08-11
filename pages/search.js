@@ -6,6 +6,7 @@ import styles from "../styles/Search.module.css";
 import SearchBar from "../components/SearchBar";
 
 const Search = ({ searchResults, searchQuery, error }) => {
+  console.log(searchResults);
   return (
     <div className={styles.main}>
       <SearchBar search={searchQuery} />
