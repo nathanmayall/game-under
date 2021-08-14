@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Tomorrow:ital,wght@1,700&display=swap");
 
 .main {
-  padding: 10rem 10rem;
+  padding: 3rem 10rem;
   flex: 1;
   display: flex;
   flex-direction: column;
