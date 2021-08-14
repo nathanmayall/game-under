@@ -21,25 +21,30 @@ export default function Home({ games, stats }) {
       </p>
       <SearchBar />
       {stats && (
-        <>
-          <p>
-            Currently tracking {stats.stats.totalApps.toLocaleString("en-GB")}{" "}
-            games!
-          </p>
-          <small>
-            Last updated:{" "}
-            {dayjs(stats.updated_at).format("hh:mm, MMMM Do, YYYY")}
-          </small>
-        </>
+        <p>
+          Currently tracking {stats.stats.totalApps.toLocaleString("en-GB")}{" "}
+          games!
+        </p>
       )}
-      <div className={styles.grid}>
-        {games?.map((game) => (
-          <GameCard
-            key={game.appID + game.name + new Date().getTime()}
-            game={game}
-          />
-        ))}
-      </div>
+
+      {games.length > 0 && (
+        <div className={styles.suggestion}>
+          <p>We suggest you check out:</p>
+          <div className={styles.grid}>
+            {games?.map((game) => (
+              <GameCard
+                key={game.appID + game.name + new Date().getTime()}
+                game={game}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      {stats && (
+        <small>
+          Last updated: {dayjs(stats.updated_at).format("hh:mm, MMMM Do, YYYY")}
+        </small>
+      )}
     </main>
   );
 }

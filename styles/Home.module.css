@@ -67,3 +67,8 @@
     width: 100%;
   }
 }
+
+.suggestion {
+  text-align: left;
+  align-self: flex-start;
+}
