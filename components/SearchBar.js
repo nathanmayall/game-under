@@ -51,6 +51,14 @@ const SearchBar = ({ search }) => {
       }, 250)
     );
   };
+
+  const handleKeyPress = (event) => {
+    // look for the `Enter` keyCode
+    if (event.keyCode === 13 || event.which === 13) {
+      router.push(`/search?gameSearch=${gameSearch}`);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <input
@@ -60,6 +68,7 @@ const SearchBar = ({ search }) => {
         onChange={(e) => setGameSearch(e.target.value)}
         className={styles.input}
         onSubmit={() => router.push(`/search?gameSearch=${gameSearch}`)}
+        onKeyPress={handleKeyPress}
       />
       <span
         onClick={() => router.push(`/search?gameSearch=${gameSearch}`)}

@@ -33,7 +33,7 @@ searchHandler.get(async (req, res) => {
       res.status(200).send(results);
     }
   } catch (err) {
-    console.log(err);
+    console.log("no games found");
   }
 });
 

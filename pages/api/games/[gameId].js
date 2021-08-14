@@ -1,6 +1,5 @@
 import nc from "next-connect";
 import axios from "axios";
-// import { fireStore } from "../../../components/firebase";
 
 import { onError, onNoMatch } from "../../../controllers/errorHandlers";
 

@@ -1,10 +1,20 @@
+import { useState } from "react";
+
 import { fireStore } from "../components/firebase";
+import axios from "axios";
 
-import dummyData from "../AllSteamApps.json";
+const Update = () => {
+  const [loading, setLoading] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const [dbLength, setDbLength] = useState(null);
 
-const update = ({ dummyData }) => {
-  const updateDB = () => {
-    dummyData.forEach(async (game) => {
+  const updateDB = async () => {
+    const { data } = await axios(
+      "https://api.steamapis.com/market/apps?api_key=zSQo-hIrr3nUU5T__NbF8Bc_Y1w"
+    );
+
+    data.forEach(async (game) => {
+      setLoading(true);
       const { name, appID, is_free, price_overview } = game;
       const hasPriceOverview = price_overview || null;
 
@@ -18,19 +28,18 @@ const update = ({ dummyData }) => {
         })
         .catch((error) => console.log("Error adding document: ", error));
     });
+    setDbLength(data.length);
+    setLoading(false);
+    setComplete(true);
   };
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <button onClick={updateDB}>Update master DB</button>
+      {loading && <div>Loading...</div>}
+      {complete && <div>Update finished! Now holding {dbLength} games.</div>}
     </div>
   );
 };
 
 export default update;
-
-export async function getServerSideProps() {
-  return {
-    props: { dummyData }, // will be passed to the page component as props
-  };
-}
