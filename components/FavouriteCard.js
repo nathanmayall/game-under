@@ -7,6 +7,8 @@ import Image from "next/image";
 
 import placeholder from "../public/placeholder.jpg";
 
+import Link from "next/link";
+
 const FavouriteCard = ({ appID }) => {
   const [favData, setFavData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -45,24 +47,28 @@ const FavouriteCard = ({ appID }) => {
   return (
     <>
       {!error && !loading && header_image && favData ? (
-        <div className={styles.card}>
-          <Image
-            src={header_image}
-            alt="Favourite Card"
-            layout="intrinsic"
-            objectFit=""
-            width={350}
-            height={175}
-            placeholder={blur}
-            className={styles.image}
-          />
-          <div className={styles.text}>
-            <p>{name}</p>
-            {price_overview && <h2>Price: {priceFormatter(price_overview)}</h2>}
-            <small>{appID}</small>
-          </div>
-          <button className={styles.fav}>Favourite</button>
-        </div>
+        <Link href={`/games/${appID}`} className={styles.card}>
+          <a>
+            <Image
+              src={header_image}
+              alt="Favourite Card"
+              layout="intrinsic"
+              objectFit=""
+              width={350}
+              height={175}
+              placeholder={blur}
+              className={styles.image}
+            />
+            <div className={styles.text}>
+              <p>{name}</p>
+              {price_overview && (
+                <h2>Price: {priceFormatter(price_overview)}</h2>
+              )}
+              <small>{appID}</small>
+            </div>
+            <button className={styles.fav}>Favourite</button>
+          </a>
+        </Link>
       ) : (
         <div className={styles.card}>Loading...</div>
       )}
