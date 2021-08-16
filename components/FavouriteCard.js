@@ -9,6 +9,10 @@ import placeholder from "../public/placeholder.jpg";
 
 import Link from "next/link";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+
 const FavouriteCard = ({ appID }) => {
   const [favData, setFavData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -61,11 +65,17 @@ const FavouriteCard = ({ appID }) => {
             />
           </Link>
           <div className={styles.text}>
-            <p>{name}</p>
-            {price_overview && <h2>Price: {priceFormatter(price_overview)}</h2>}
+            <h2>{name}</h2>
+            {price_overview && <p>Price: {priceFormatter(price_overview)}</p>}
             <small>{appID}</small>
           </div>
-          <button className={styles.fav}>Favourite</button>
+          <button className={styles.favButton}>
+            <FontAwesomeIcon
+              icon={faHeartSolid}
+              className={styles.favouriteIcon}
+              size="3x"
+            />
+          </button>
         </div>
       ) : (
         <div className={styles.card}>Loading...</div>

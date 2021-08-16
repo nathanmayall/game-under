@@ -19,7 +19,7 @@
 
 .singleResult {
   cursor: pointer;
-  background-color: darkslategray;
+  background-color: darkgray;
   color: white;
   padding: 0.2rem;
   border-radius: 0.3rem;
@@ -30,7 +30,7 @@
 }
 
 .singleResult:hover {
-  background-color: rgb(61, 102, 102);
+  background-color: black;
   transition: all;
   transition-duration: 150ms;
 }
