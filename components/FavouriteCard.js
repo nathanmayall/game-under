@@ -1,19 +1,36 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../styles/FavouriteCard.module.css";
+import priceFormatter from "../utils/PriceFormatter";
+
+import Image from "next/image";
+
+import placeholder from "../public/placeholder.jpg";
+
+import Link from "next/link";
 
 const FavouriteCard = ({ appID }) => {
   const [favData, setFavData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getFavInfo(appID);
   }, [appID]);
 
   const getFavInfo = async (appID) => {
-    const { data } = await axios(
-      `https://api.steamapis.com/market/app/${appID}?api_key=zSQo-hIrr3nUU5T__NbF8Bc_Y1w`
-    );
-    setFavData(data);
+    setLoading(true);
+    try {
+      const {
+        data: { result },
+      } = await axios(`/api/games/${appID}`);
+      setFavData(result);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   const {
@@ -23,18 +40,37 @@ const FavouriteCard = ({ appID }) => {
     developers,
     publishers,
     platforms,
+    price_overview,
+    background,
   } = favData;
 
   return (
-    <div className={styles.card}>
-      {favData && (
-        <>
-          <img src={header_image} alt="" />
-          <p>{name}</p>
-        </>
+    <>
+      {!error && !loading && header_image && favData ? (
+        <div className={styles.card}>
+          <Link href={`/games/${appID}`} passHref>
+            <Image
+              src={header_image}
+              alt="Favourite Card"
+              layout="intrinsic"
+              objectFit=""
+              width={350}
+              height={175}
+              placeholder={blur}
+              className={styles.image}
+            />
+          </Link>
+          <div className={styles.text}>
+            <p>{name}</p>
+            {price_overview && <h2>Price: {priceFormatter(price_overview)}</h2>}
+            <small>{appID}</small>
+          </div>
+          <button className={styles.fav}>Favourite</button>
+        </div>
+      ) : (
+        <div className={styles.card}>Loading...</div>
       )}
-      <small>{appID}</small>
-    </div>
+    </>
   );
 };
 

@@ -1,54 +1,74 @@
 import { useEffect, useState } from "react";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, fireStore } from "../components/firebase";
+import { auth } from "../components/firebase";
+
+import axios from "axios";
+
 import styles from "../styles/me.module.css";
 import FavouriteCard from "../components/FavouriteCard";
 
 const Me = () => {
   const [favourites, setFavourites] = useState([]);
-  const [error, setError] = useState(undefined);
-  const [loading, setLoading] = useState(false);
-  const [user] = useAuthState(auth);
-  console.log(error);
+  const [favError, setFavError] = useState(undefined);
+  const [favLoading, setFavLoading] = useState(false);
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     getFavourites(user);
-  }, [user]);
+  }, [user, loading, error]);
 
   const getFavourites = async (user) => {
-    setLoading(true);
-    setError(undefined);
-    if (!user) return;
-    try {
-      const resultsArray = [];
-      const Favourites = fireStore.collection("favourites");
+    setFavLoading(true);
+    setFavError(undefined);
 
-      const snapshot = await Favourites.where("uid", "==", user.uid).get();
-      if (snapshot.empty) return;
-
-      snapshot.forEach((doc) => {
-        resultsArray.push(doc.data());
-      });
-      setFavourites(resultsArray);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      return setError({ error: "Something Went Wrong" });
+    if (!user) {
+      setFavLoading(false);
+      setFavError("You must be logged in to view your favourites.");
+      return;
+    } else {
+      try {
+        const { data } = await axios(`/api/users/favourites`, {
+          headers: { authorization: `Bearer ${user.uid}` },
+        });
+        setFavLoading(false);
+        setFavourites(data);
+      } catch (error) {
+        console.log(error);
+        setFavLoading(false);
+        setFavError({ error: "Something Went Wrong" });
+      }
     }
+    return;
   };
 
-  return (
-    <div className={styles.main}>
-      Welcome, {user ? user.displayName : "Gamer"}
-      {loading && <div>Loading...</div>}
-      {!loading && favourites.length > 0
-        ? favourites.map((f) => {
-            return <FavouriteCard key={f.appID} appID={f.appID} />;
-          })
-        : !loading && <p>No Favourites found</p>}
-      {error && <p>Something went wrong</p>}
-    </div>
-  );
+  if (!loading || !error) {
+    return (
+      <div className={styles.main}>
+        {!favLoading && favourites.length > 0 ? (
+          <>
+            Welcome, {user ? user.displayName : "Gamer"}, here's your
+            favourites:
+            {favourites.map((f) => {
+              return <FavouriteCard key={f.appID} appID={f.appID} />;
+            })}
+          </>
+        ) : (
+          <div className={styles.main}>
+            {favLoading && !favError && <p>Loading...</p>}
+            {favError && !favLoading && <p>{favError}</p>}
+          </div>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div className={styles.main}>
+        {loading && <div>Loading...</div>}
+        {error && (
+          <div className={styles.main}>Something went wrong, {error}</div>
+        )}
+      </div>
+    );
+  }
 };
 export default Me;

@@ -1,6 +1,5 @@
 import nc from "next-connect";
 import axios from "axios";
-// import { fireStore } from "../../../components/firebase";
 
 import { onError, onNoMatch } from "../../../controllers/errorHandlers";
 
@@ -18,7 +17,7 @@ const findOneGame = async (req, res) => {
 
       //retrieve deal results
       const { data: deals } = await axios.get(
-        `https://www.cheapshark.com/api/1.0/games?title=${result.name}&limit=60&exact=0`
+        `https://www.cheapshark.com/api/1.0/games?steamAppID=${gameId}&limit=60&exact=0`
       );
       if (deals.length === 0) {
         res.status(200).send({ result });
@@ -41,6 +40,7 @@ const findOneGame = async (req, res) => {
         res.status(200).send({ result, deals, cheapestDeal });
       }
     } catch (err) {
+      console.log(err);
       res.status(404).send();
     }
   } catch (error) {
