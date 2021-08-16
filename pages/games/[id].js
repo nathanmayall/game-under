@@ -92,12 +92,15 @@ const GamesPage = ({ game, error }) => {
       />
       <div className={styles.title}>
         <h1>{name}</h1>
-        <button onClick={() => addOrRemoveFavourite(user, appID)}>
-          {favourite ? (
-            <FontAwesomeIcon icon={faHeartSolid} />
-          ) : (
-            <FontAwesomeIcon icon={faHeart} />
-          )}
+        <button
+          onClick={() => addOrRemoveFavourite(user, appID)}
+          className={styles.favButton}
+        >
+          <FontAwesomeIcon
+            icon={favourite ? faHeartSolid : faHeart}
+            className={styles.favouriteIcon}
+            size="3x"
+          />
         </button>
       </div>
       {game.deals ? (

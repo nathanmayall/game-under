@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Tomorrow:ital,wght@1,700&display=swap");
+@import url("http://localhost:3000/Emulogic.ttf");
 
 .navBar {
   width: 100%;
@@ -72,16 +73,18 @@
 
 .imageWrapper {
   margin-right: 1rem;
-
   display: flex;
   justify-content: flex-end;
 }
 
 .title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-  font-family: "DotGothic16", sans-serif;
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-family: "Emulogic", "DotGothic16", sans-serif;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }

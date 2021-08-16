@@ -39,9 +39,11 @@ const Nav = () => {
         <p>Welcome, {user ? userFirstName : "Gamer"}</p>
       </div>
       {router.pathname !== "/" ? (
-        <Link href={"/"} passHref>
-          <h1 className={styles.title}>GameUnder</h1>
-        </Link>
+        <div className={styles.title}>
+          <Link href={"/"} passHref>
+            <h1>GameUnder</h1>
+          </Link>
+        </div>
       ) : (
         <p></p>
       )}

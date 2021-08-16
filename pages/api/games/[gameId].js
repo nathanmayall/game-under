@@ -19,7 +19,6 @@ const findOneGame = async (req, res) => {
       const { data: deals } = await axios.get(
         `https://www.cheapshark.com/api/1.0/games?steamAppID=${gameId}&limit=60&exact=0`
       );
-      console.log("result is *******************", result);
       if (deals.length === 0) {
         res.status(200).send({ result });
       } else {
