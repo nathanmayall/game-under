@@ -47,8 +47,8 @@ const FavouriteCard = ({ appID }) => {
   return (
     <>
       {!error && !loading && header_image && favData ? (
-        <Link href={`/games/${appID}`} className={styles.card}>
-          <a>
+        <div className={styles.card}>
+          <Link href={`/games/${appID}`} passHref>
             <Image
               src={header_image}
               alt="Favourite Card"
@@ -59,16 +59,14 @@ const FavouriteCard = ({ appID }) => {
               placeholder={blur}
               className={styles.image}
             />
-            <div className={styles.text}>
-              <p>{name}</p>
-              {price_overview && (
-                <h2>Price: {priceFormatter(price_overview)}</h2>
-              )}
-              <small>{appID}</small>
-            </div>
-            <button className={styles.fav}>Favourite</button>
-          </a>
-        </Link>
+          </Link>
+          <div className={styles.text}>
+            <p>{name}</p>
+            {price_overview && <h2>Price: {priceFormatter(price_overview)}</h2>}
+            <small>{appID}</small>
+          </div>
+          <button className={styles.fav}>Favourite</button>
+        </div>
       ) : (
         <div className={styles.card}>Loading...</div>
       )}

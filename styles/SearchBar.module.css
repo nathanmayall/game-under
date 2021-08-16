@@ -10,14 +10,15 @@
 
 .icon {
   position: relative;
-  bottom: 2.2rem;
+  bottom: 2rem;
   left: 36.5rem;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
 .icon:hover {
-  bottom: 2.4rem;
+  bottom: 2.2rem;
   font-size: larger;
+  overflow: hidden;
 }
 
 .results {

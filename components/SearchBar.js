@@ -6,6 +6,10 @@ import { fireStore } from "./firebase";
 
 import styles from "../styles/SearchBar.module.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 const SearchBar = ({ search }) => {
   const router = useRouter();
   const [gameSearch, setGameSearch] = useState(search || "");
@@ -74,7 +78,7 @@ const SearchBar = ({ search }) => {
         onClick={() => router.push(`/search?gameSearch=${gameSearch}`)}
         className={styles.icon}
       >
-        🔎
+        <FontAwesomeIcon icon={faSearch} />
       </span>
       {results.length > 0 && router.pathname === "/" ? (
         <>
