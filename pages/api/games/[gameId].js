@@ -17,27 +17,22 @@ const findOneGame = async (req, res) => {
 
       //retrieve deal results
       const { data: deals } = await axios.get(
-        `https://www.cheapshark.com/api/1.0/games?steamAppID=${gameId}&limit=60&exact=0`
+        `https://www.cheapshark.com/api/1.0/deals?steamAppID=${gameId}&limit=60&exact=0`
       );
       if (deals.length === 0) {
         res.status(200).send({ result });
       } else {
-        const { data: cheapestDeal } = await axios.get(
-          `https://www.cheapshark.com/api/1.0/deals?id=${deals[0].cheapestDealID}`
-        );
-
         const { data: storeInfo } = await axios.get(
           "https://www.cheapshark.com/api/1.0/stores"
         );
 
-        const storeNumber = parseInt(cheapestDeal.gameInfo.storeID) - 1;
+        deals.forEach((deal) => {
+          deal.dealLink = `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`;
+          const storeNumber = parseInt(deal.storeID) - 1;
+          deal.storeInfo = storeInfo[storeNumber];
+        });
 
-        const storeName = storeInfo[storeNumber];
-
-        cheapestDeal.gameInfo.storeInfo = storeName;
-        cheapestDeal.gameInfo.dealLink = `https://www.cheapshark.com/redirect?dealID=${deals[0].cheapestDealID}`;
-
-        res.status(200).send({ result, deals, cheapestDeal });
+        res.status(200).send({ result, deals });
       }
     } catch (err) {
       console.log(err);

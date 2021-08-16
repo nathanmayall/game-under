@@ -103,11 +103,8 @@ const GamesPage = ({ game, error }) => {
           />
         </button>
       </div>
-      {game.deals ? (
-        <DealCard
-          deal={game.cheapestDeal.gameInfo}
-          history={game.cheapestDeal.cheapestPrice}
-        />
+      {game.deals && game.deals.length > 1 ? (
+        game.deals.map((deal, i) => <DealCard deal={deal} key={i} />)
       ) : (
         <p>No deals found, please check back later!</p>
       )}

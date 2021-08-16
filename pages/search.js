@@ -40,7 +40,11 @@ export default Search;
 
 export const getServerSideProps = async (context) => {
   try {
-    if (!context.query.gameSearch) return;
+    if (!context.query.gameSearch)
+      return {
+        props: { searchResults: [], searchQuery: "" },
+      };
+
     const searchQuery = context.query.gameSearch;
 
     const { data: searchResults } = await axios(

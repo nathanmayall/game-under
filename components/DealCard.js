@@ -3,52 +3,19 @@ import Link from "next/link";
 
 import styles from "../styles/DealCard.module.css";
 
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
-
-dayjs.extend(advancedFormat);
-
-const DealCard = ({ deal, history }) => {
-  const {
-    gameID,
-    name,
-    steamAppID,
-    salePrice,
-    retailPrice,
-    steamRatingText,
-    steamRatingPercent,
-    steamRatingCount,
-    metacriticScore,
-    metacriticLink,
-    releaseDate,
-    publisher,
-    steamworks,
-    storeInfo,
-    dealLink,
-    thumb,
-  } = deal;
-
-  const { price: cheapestEverPrice, date: cheapestEverDateStamp } = history;
-
-  const formatDate = (date) => dayjs.unix(date).format("MMMM Do, YYYY");
+const DealCard = ({ deal }) => {
+  const { salePrice, normalPrice, storeInfo, dealLink } = deal;
 
   const { storeName, images } = storeInfo;
 
   return (
     <div className={styles.container}>
       <div>
-        {cheapestEverPrice && (
-          <div>
-            Lowest: ${cheapestEverPrice} on {formatDate(cheapestEverDateStamp)}
-          </div>
-        )}
-      </div>
-      <div>
-        {retailPrice === salePrice ? (
-          <p>Now: ${retailPrice}</p>
+        {normalPrice === salePrice ? (
+          <p>${normalPrice}</p>
         ) : (
           <p>
-            Now: <del>${retailPrice}</del> ${salePrice}!
+            <del>${normalPrice}</del> ${salePrice}!
           </p>
         )}
       </div>
