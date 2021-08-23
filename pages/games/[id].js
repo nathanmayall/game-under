@@ -2,6 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 import styles from "@/styles/GamePage.module.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -107,12 +108,18 @@ const GamesPage = ({ game, error }) => {
       {game.deals && game.deals.length > 1 ? (
         game.deals.map((deal, i) => <DealCard deal={deal} key={i} />)
       ) : (
-        <p>
-          No deals found, but check it out on Steam{" "}
+        <div className={styles.noDeal}>
+          <p>No deals found, but check it out on Steam</p>
           <Link href={`https://store.steampowered.com/app/${appID}`} passHref>
-            <a>Here!</a>
+            <Image
+              className={styles.noDealImage}
+              src="https://cheapshark.com/img/stores/logos/0.png"
+              alt="steamLogo"
+              width={50}
+              height={50}
+            />
           </Link>
-        </p>
+        </div>
       )}
       <div>
         {price_overview && <h1>Steam: {priceFormatter(price_overview)}</h1>}
