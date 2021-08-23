@@ -9,7 +9,11 @@ const signInWithGoogle = async () => {
   auth.signInWithPopup(googleAuthProvider);
 };
 
-import { googleAuthProvider, auth, createUserDocument } from "@/components/firebase";
+import {
+  googleAuthProvider,
+  auth,
+  createUserDocument,
+} from "@/components/firebase";
 
 const Nav = () => {
   const router = useRouter();
@@ -41,7 +45,7 @@ const Nav = () => {
       {router.pathname !== "/" ? (
         <div className={styles.title}>
           <Link href={"/"} passHref>
-            <h1>GameUnder</h1>
+            <h1>Game-Under</h1>
           </Link>
         </div>
       ) : (
