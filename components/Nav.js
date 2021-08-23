@@ -41,7 +41,7 @@ const Nav = () => {
       {router.pathname !== "/" ? (
         <div className={styles.title}>
           <Link href={"/"} passHref>
-            <h1>GameUnder</h1>
+            <h1>Game-Under</h1>
           </Link>
         </div>
       ) : (
