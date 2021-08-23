@@ -110,14 +110,17 @@ const GamesPage = ({ game, error }) => {
       ) : (
         <div className={styles.noDeal}>
           <p>No deals found, but check it out on Steam</p>
+
           <Link href={`https://store.steampowered.com/app/${appID}`} passHref>
-            <Image
-              className={styles.noDealImage}
-              src="https://cheapshark.com/img/stores/logos/0.png"
-              alt="steamLogo"
-              width={50}
-              height={50}
-            />
+            <a>
+              <Image
+                className={styles.noDealImage}
+                src="https://cheapshark.com/img/stores/logos/0.png"
+                alt="steamLogo"
+                width={50}
+                height={50}
+              />
+            </a>
           </Link>
         </div>
       )}
