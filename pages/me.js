@@ -22,22 +22,20 @@ const Me = () => {
     setFavError(undefined);
 
     if (!user) {
-      setFavLoading(false);
       setFavError("You must be logged in to view your favourites.");
+      setFavLoading(false);
       return;
     } else {
       try {
-        const { data } = await axios(`/api/users/favourites`, {
+        const { data, status } = await axios(`/api/users/favourites`, {
           headers: { authorization: `Bearer ${user.uid}` },
         });
-        setFavLoading(false);
+        console.log(status);
         setFavourites(data);
-      } catch (error) {
         setFavLoading(false);
-
-        console.log()
-
-        setFavError({ error: "Something Went Wrong" });
+      } catch (error) {
+        setFavError("No Favourites found");
+        setFavLoading(false);
       }
     }
     return;
@@ -49,14 +47,15 @@ const Me = () => {
           <>
             Welcome, {user ? user.displayName : "Gamer"}, here&apos;s your
             favourites:
-            {favourites.map((f) => (
-              <FavouriteCard key={f.appID} appID={f.appID} uid={user.uid} />
-            ))}
+            {favourites.length > 0 &&
+              favourites.map((f) => (
+                <FavouriteCard key={f.appID} appID={f.appID} uid={user.uid} />
+              ))}
           </>
         ) : (
           <div className={styles.main}>
             {favLoading && !favError && <p>Loading...</p>}
-            {favError && !favLoading && <p>{favError.error}</p>}
+            {favError && !favLoading && <p>{favError}</p>}
           </div>
         )}
       </div>
