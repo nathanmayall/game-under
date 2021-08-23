@@ -33,8 +33,10 @@ const Me = () => {
         setFavLoading(false);
         setFavourites(data);
       } catch (error) {
-        console.log(error);
         setFavLoading(false);
+
+        console.log()
+
         setFavError({ error: "Something Went Wrong" });
       }
     }
@@ -54,7 +56,7 @@ const Me = () => {
         ) : (
           <div className={styles.main}>
             {favLoading && !favError && <p>Loading...</p>}
-            {favError && !favLoading && <p>{favError}</p>}
+            {favError && !favLoading && <p>{favError.error}</p>}
           </div>
         )}
       </div>
