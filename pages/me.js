@@ -40,7 +40,6 @@ const Me = () => {
     }
     return;
   };
-
   if (!loading || !error) {
     return (
       <div className={styles.main}>
@@ -48,9 +47,9 @@ const Me = () => {
           <>
             Welcome, {user ? user.displayName : "Gamer"}, here's your
             favourites:
-            {favourites.map((f) => {
-              return <FavouriteCard key={f.appID} appID={f.appID} />;
-            })}
+            {favourites.map((f) => (
+              <FavouriteCard key={f.appID} appID={f.appID} uid={user.uid} />
+            ))}
           </>
         ) : (
           <div className={styles.main}>
