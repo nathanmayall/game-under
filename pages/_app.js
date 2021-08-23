@@ -1,6 +1,6 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import "firebase/analytics";
@@ -9,8 +9,8 @@ import Head from "next/head";
 
 import axios from "axios";
 
-import Footer from "../components/Footer";
-import Nav from "../components/Nav";
+import Footer from "@/components/Footer";
+import Nav from "@/components/Nav";
 
 config.autoAddCss = false;
 

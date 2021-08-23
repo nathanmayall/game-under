@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../components/firebase";
+import { auth } from "@/components/firebase";
 
 import axios from "axios";
 
-import styles from "../styles/me.module.css";
-import FavouriteCard from "../components/FavouriteCard";
+import styles from "@/styles/me.module.css";
+import FavouriteCard from "@/components/FavouriteCard";
 
 const Me = () => {
   const [favourites, setFavourites] = useState([]);
@@ -40,17 +40,16 @@ const Me = () => {
     }
     return;
   };
-
   if (!loading || !error) {
     return (
       <div className={styles.main}>
         {!favLoading && favourites.length > 0 ? (
           <>
-            Welcome, {user ? user.displayName : "Gamer"}, here's your
+            Welcome, {user ? user.displayName : "Gamer"}, here&apos;s your
             favourites:
-            {favourites.map((f) => {
-              return <FavouriteCard key={f.appID} appID={f.appID} />;
-            })}
+            {favourites.map((f) => (
+              <FavouriteCard key={f.appID} appID={f.appID} uid={user.uid} />
+            ))}
           </>
         ) : (
           <div className={styles.main}>

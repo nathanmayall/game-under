@@ -1,22 +1,24 @@
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import styles from "../../styles/GamePage.module.css";
+
+import styles from "@/styles/GamePage.module.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { fireStore, auth, googleAuthProvider } from "../../components/firebase";
+import { fireStore, auth, googleAuthProvider } from "@/components/firebase";
 
 import DOMPurify from "isomorphic-dompurify";
 
-import priceFormatter from "../../utils/PriceFormatter";
+import priceFormatter from "@/utils/PriceFormatter";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
-import DealCard from "../../components/DealCard";
+import DealCard from "@/components/DealCard";
 
 const GamesPage = ({ game, error }) => {
   const [user] = useAuthState(auth);
@@ -37,6 +39,7 @@ const GamesPage = ({ game, error }) => {
 
   useEffect(() => {
     if (user) getFavourite(user);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, favourite]);
 
   const getFavourite = async (user) => {
@@ -106,7 +109,21 @@ const GamesPage = ({ game, error }) => {
       {game.deals && game.deals.length > 1 ? (
         game.deals.map((deal, i) => <DealCard deal={deal} key={i} />)
       ) : (
-        <p>No deals found, please check back later!</p>
+        <div className={styles.noDeal}>
+          <p>No deals found, but check it out on Steam</p>
+
+          <Link href={`https://store.steampowered.com/app/${appID}`} passHref>
+            <a>
+              <Image
+                className={styles.noDealImage}
+                src="https://cheapshark.com/img/stores/logos/0.png"
+                alt="steamLogo"
+                width={50}
+                height={50}
+              />
+            </a>
+          </Link>
+        </div>
       )}
       <div>
         {price_overview && <h1>Steam: {priceFormatter(price_overview)}</h1>}

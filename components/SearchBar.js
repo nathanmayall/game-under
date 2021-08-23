@@ -40,7 +40,7 @@ const SearchBar = ({ search }) => {
             .get();
 
           if (snapshot.empty) {
-            console.log("No games found");
+            setResults([])
             return;
           }
           const resultsArray = [];

@@ -1,18 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import styles from "../styles/FavouriteCard.module.css";
-import priceFormatter from "../utils/PriceFormatter";
+import styles from "@/styles/FavouriteCard.module.css";
+import priceFormatter from "@/utils/PriceFormatter";
+
+import { useRouter } from "next/router";
+
+import { fireStore } from "./firebase";
 
 import Image from "next/image";
 
+//use this while loading
 import placeholder from "../public/placeholder.jpg";
 
 import Link from "next/link";
 
-const FavouriteCard = ({ appID }) => {
+const FavouriteCard = ({ appID, uid }) => {
   const [favData, setFavData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     getFavInfo(appID);
@@ -33,39 +40,53 @@ const FavouriteCard = ({ appID }) => {
     }
   };
 
-  const {
-    header_image,
-    name,
-    short_description,
-    developers,
-    publishers,
-    platforms,
-    price_overview,
-    background,
-  } = favData;
+  const removeFavourite = async () => {
+    const favesRef = fireStore.collection("favourites");
+
+    const alreadyInFaves = await favesRef
+      .where("uid", "==", uid)
+      .where("appID", "==", appID)
+      .get();
+
+    if (alreadyInFaves.empty) {
+      console.log("not in faves");
+    }
+
+    alreadyInFaves.forEach(async (doc) => {
+      console.log(doc.data());
+      await favesRef.doc(doc.id).delete();
+      router.reload();
+    });
+  };
+
+  const { header_image, name, price_overview } = favData;
 
   return (
     <>
       {!error && !loading && header_image && favData ? (
         <div className={styles.card}>
           <Link href={`/games/${appID}`} passHref>
-            <Image
-              src={header_image}
-              alt="Favourite Card"
-              layout="intrinsic"
-              objectFit=""
-              width={350}
-              height={175}
-              placeholder={blur}
-              className={styles.image}
-            />
+            <a>
+              <Image
+                src={header_image}
+                alt="Favourite Card"
+                layout="intrinsic"
+                objectFit=""
+                width={350}
+                height={175}
+                placeholder={blur}
+                className={styles.image}
+              />
+            </a>
           </Link>
           <div className={styles.text}>
             <p>{name}</p>
             {price_overview && <h2>Price: {priceFormatter(price_overview)}</h2>}
             <small>{appID}</small>
           </div>
-          <button className={styles.fav}>Favourite</button>
+          <button onClick={removeFavourite} className={styles.fav}>
+            Favourite
+          </button>
         </div>
       ) : (
         <div className={styles.card}>Loading...</div>
