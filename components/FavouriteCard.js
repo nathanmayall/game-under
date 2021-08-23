@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import styles from "../styles/FavouriteCard.module.css";
-import priceFormatter from "../utils/PriceFormatter";
+import styles from "@/styles/FavouriteCard.module.css";
+import priceFormatter from "@/utils/PriceFormatter";
 
 import Image from "next/image";
 
+//use this while loading
 import placeholder from "../public/placeholder.jpg";
 
 import Link from "next/link";

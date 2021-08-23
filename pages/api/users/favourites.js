@@ -1,7 +1,7 @@
 import nc from "next-connect";
-import { onError, onNoMatch } from "../../../controllers/errorHandlers";
+import { onError, onNoMatch } from "@/controllers/errorHandlers";
 
-import { fireStore } from "../../../components/firebase";
+import { fireStore } from "@/components/firebase";
 
 const favouriteHandler = nc({
   attachParams: true,

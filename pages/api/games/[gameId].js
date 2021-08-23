@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import axios from "axios";
 
-import { onError, onNoMatch } from "../../../controllers/errorHandlers";
+import { onError, onNoMatch } from "@/controllers/errorHandlers";
 
 const gameHandler = nc({ attachParams: true, onNoMatch, onError });
 

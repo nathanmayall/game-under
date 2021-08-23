@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../components/firebase";
+import { auth } from "@/components/firebase";
 
 import axios from "axios";
 
-import styles from "../styles/me.module.css";
-import FavouriteCard from "../components/FavouriteCard";
+import styles from "@/styles/me.module.css";
+import FavouriteCard from "@/components/FavouriteCard";
 
 const Me = () => {
   const [favourites, setFavourites] = useState([]);
