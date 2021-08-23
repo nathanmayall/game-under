@@ -1,5 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "@/styles/GamePage.module.css";
 
@@ -106,7 +107,12 @@ const GamesPage = ({ game, error }) => {
       {game.deals && game.deals.length > 1 ? (
         game.deals.map((deal, i) => <DealCard deal={deal} key={i} />)
       ) : (
-        <p>No deals found, please check back later!</p>
+        <p>
+          No deals found, but check it out on Steam{" "}
+          <Link href={`https://store.steampowered.com/app/${appID}`} passHref>
+            <a>Here!</a>
+          </Link>
+        </p>
       )}
       <div>
         {price_overview && <h1>Steam: {priceFormatter(price_overview)}</h1>}
