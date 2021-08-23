@@ -45,7 +45,7 @@ const Me = () => {
       <div className={styles.main}>
         {!favLoading && favourites.length > 0 ? (
           <>
-            Welcome, {user ? user.displayName : "Gamer"}, here's your
+            Welcome, {user ? user.displayName : "Gamer"}, here&apos;s your
             favourites:
             {favourites.map((f) => (
               <FavouriteCard key={f.appID} appID={f.appID} uid={user.uid} />

@@ -39,6 +39,7 @@ const GamesPage = ({ game, error }) => {
 
   useEffect(() => {
     if (user) getFavourite(user);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, favourite]);
 
   const getFavourite = async (user) => {
