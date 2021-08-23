@@ -1,22 +1,22 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import styles from "../../styles/GamePage.module.css";
+import styles from "@/styles/GamePage.module.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { fireStore, auth, googleAuthProvider } from "../../components/firebase";
+import { fireStore, auth, googleAuthProvider } from "@/components/firebase";
 
 import DOMPurify from "isomorphic-dompurify";
 
-import priceFormatter from "../../utils/PriceFormatter";
+import priceFormatter from "@/utils/PriceFormatter";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
-import DealCard from "../../components/DealCard";
+import DealCard from "@/components/DealCard";
 
 const GamesPage = ({ game, error }) => {
   const [user] = useAuthState(auth);

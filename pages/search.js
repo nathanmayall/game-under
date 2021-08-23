@@ -1,9 +1,9 @@
 import Link from "next/link";
 import axios from "axios";
 
-import styles from "../styles/Search.module.css";
+import styles from "@/styles/Search.module.css";
 
-import SearchBar from "../components/SearchBar";
+import SearchBar from "@/components/SearchBar";
 
 const Search = ({ searchResults, searchQuery, error }) => {
   if (!error) {

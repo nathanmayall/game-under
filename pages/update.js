@@ -1,7 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
 
-import { fireStore } from "../components/firebase";
-import axios from "axios";
+import { fireStore } from "@/components/firebase";
 
 const Update = () => {
   const [loading, setLoading] = useState(false);
@@ -42,4 +42,4 @@ const Update = () => {
   );
 };
 
-export default update;
+export default Update;

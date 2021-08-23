@@ -1,7 +1,7 @@
-import styles from "../styles/GameCard.module.css";
+import styles from "@/styles/GameCard.module.css";
 import Link from "next/link";
 
-import priceFormatter from "../utils/PriceFormatter";
+import priceFormatter from "@/utils/PriceFormatter";
 
 const gameCard = ({ game }) => {
   const { name, steamID, is_free, hasPriceOverview } = game;

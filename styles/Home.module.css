@@ -69,7 +69,7 @@
   }
 }
 
-.suggestion {
+.suggestion p {
   text-align: left;
   align-self: flex-start;
 }
