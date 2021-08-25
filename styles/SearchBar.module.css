@@ -1,5 +1,7 @@
 .container {
-  width: 40rem;
+  width: 75%;
+  margin: auto;
+  position: relative;
 }
 
 .input {
@@ -9,9 +11,10 @@
 }
 
 .icon {
-  position: relative;
-  bottom: 2rem;
-  left: 36.5rem;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
