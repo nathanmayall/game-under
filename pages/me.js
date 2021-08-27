@@ -27,10 +27,9 @@ const Me = () => {
       return;
     } else {
       try {
-        const { data, status } = await axios(`/api/users/favourites`, {
+        const { data } = await axios(`/api/users/favourites`, {
           headers: { authorization: `Bearer ${user.uid}` },
         });
-        console.log(status);
         setFavourites(data);
         setFavLoading(false);
       } catch (error) {
