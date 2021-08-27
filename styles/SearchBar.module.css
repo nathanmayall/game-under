@@ -1,5 +1,7 @@
 .container {
-  width: 40rem;
+  width: 75%;
+  margin: auto;
+  position: relative;
 }
 
 .input {
@@ -9,9 +11,10 @@
 }
 
 .icon {
-  position: relative;
-  bottom: 2rem;
-  left: 36.5rem;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
@@ -31,7 +34,7 @@
 
 .singleResult {
   cursor: pointer;
-  background-color: darkslategray;
+  background-color: darkgray;
   color: white;
   padding: 0.2rem;
   border-radius: 0.3rem;
@@ -42,7 +45,7 @@
 }
 
 .singleResult:hover {
-  background-color: rgb(61, 102, 102);
+  background-color: darkgray;
   transition: all;
   transition-duration: 150ms;
 }

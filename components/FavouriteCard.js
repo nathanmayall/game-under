@@ -1,20 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
+import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
 import styles from "@/styles/FavouriteCard.module.css";
 import priceFormatter from "@/utils/PriceFormatter";
-
-import { useRouter } from "next/router";
+import placeholder from "../public/placeholder.jpg";
 
 import { fireStore } from "./firebase";
 
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-//use this while loading
-import placeholder from "../public/placeholder.jpg";
-
-import Link from "next/link";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
 const FavouriteCard = ({ appID, uid }) => {
+
   const [favData, setFavData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -80,12 +82,17 @@ const FavouriteCard = ({ appID, uid }) => {
             </a>
           </Link>
           <div className={styles.text}>
-            <p>{name}</p>
-            {price_overview && <h2>Price: {priceFormatter(price_overview)}</h2>}
+            <h2>{name}</h2>
+            {price_overview && <p>Price: {priceFormatter(price_overview)}</p>}
             <small>{appID}</small>
           </div>
-          <button onClick={removeFavourite} className={styles.fav}>
-            Favourite
+          <button className={styles.favButton}>
+            <FontAwesomeIcon
+              icon={faHeartSolid}
+              className={styles.favouriteIcon}
+              size="3x"
+            />
+
           </button>
         </div>
       ) : (
