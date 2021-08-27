@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -23,9 +24,12 @@
     "prettier": "^2.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-firebase-hooks": "^3.0.4"
+    "react-firebase-hooks": "^3.0.4",
+    "sharp": "^0.29.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^11.1.0",
+    "cross-env": "^7.0.3",
     "eslint-config-next": "^11.1.0"
   }
 }

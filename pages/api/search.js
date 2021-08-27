@@ -1,7 +1,7 @@
 import nc from "next-connect";
-import { fireStore } from "../../components/firebase";
+import { fireStore } from "@/components/firebase";
 
-import { onError, onNoMatch } from "../../controllers/errorHandlers";
+import { onError, onNoMatch } from "@/controllers/errorHandlers";
 
 const searchHandler = nc({
   attachParams: true,

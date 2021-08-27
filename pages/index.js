@@ -1,12 +1,12 @@
 import axios from "axios";
-import { fireStore } from "../components/firebase";
+import { fireStore } from "@/components/firebase";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
-import styles from "../styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 
-import SearchBar from "../components/SearchBar";
-import GameCard from "../components/GameCard";
+import SearchBar from "@/components/SearchBar";
+import GameCard from "@/components/GameCard";
 
 dayjs.extend(advancedFormat);
 
@@ -42,7 +42,7 @@ export default function Home({ games, stats }) {
       )}
       {stats && (
         <small>
-          Last updated: {dayjs(stats.updated_at).format("hh:mm, MMMM Do, YYYY")}
+          Last updated: {dayjs(stats.updated_at).format("MMMM Do, YYYY, hh:mm")}
         </small>
       )}
     </main>
