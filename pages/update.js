@@ -9,25 +9,44 @@ const Update = () => {
   const [dbLength, setDbLength] = useState(null);
 
   const updateDB = async () => {
+    const batchArray = [];
+    batchArray.push(fireStore.batch());
+    let operationCounter = 0;
+    let batchIndex = 0;
+
+    setLoading(true);
     const { data } = await axios(
       "https://api.steamapis.com/market/apps?api_key=zSQo-hIrr3nUU5T__NbF8Bc_Y1w"
     );
 
+    const gamesRef = fireStore.collection("games");
+    setLoading(true);
+
     data.forEach(async (game) => {
-      setLoading(true);
       const { name, appID, is_free, price_overview } = game;
       const hasPriceOverview = price_overview || null;
 
-      await fireStore
-        .collection("games")
-        .add({
-          steamID: appID,
-          name,
-          is_free,
-          hasPriceOverview,
-        })
-        .catch((error) => console.log("Error adding document: ", error));
+      batchArray[batchIndex].set(gamesRef.doc(), {
+        name,
+        steamID: appID,
+        is_free,
+        hasPriceOverview,
+      });
+      operationCounter++;
+
+      if (operationCounter === 499) {
+        batchArray.push(fireStore.batch());
+        batchIndex++;
+        operationCounter = 0;
+      }
     });
+
+    try {
+      batchArray.forEach(async (batch) => await batch.commit());
+    } catch (error) {
+      console.log(error);
+    }
+
     setDbLength(data.length);
     setLoading(false);
     setComplete(true);
