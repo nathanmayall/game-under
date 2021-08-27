@@ -6,8 +6,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 import styles from "@/styles/FavouriteCard.module.css";
+import loadingStyles from "@/styles/loading.min.module.css";
 import priceFormatter from "@/utils/PriceFormatter";
-import placeholder from "../public/placeholder.jpg";
+import placeholder from "@/public/placeholder.jpg";
 
 import { fireStore } from "./firebase";
 
@@ -16,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
 const FavouriteCard = ({ appID, uid }) => {
-
   const [favData, setFavData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -55,7 +55,6 @@ const FavouriteCard = ({ appID, uid }) => {
     }
 
     alreadyInFaves.forEach(async (doc) => {
-      console.log(doc.data());
       await favesRef.doc(doc.id).delete();
       router.reload();
     });
@@ -77,7 +76,7 @@ const FavouriteCard = ({ appID, uid }) => {
                 width={350}
                 height={175}
                 placeholder={blur}
-                className={styles.image}
+                className={styles.imagePlaceHolder}
               />
             </a>
           </Link>
@@ -86,17 +85,27 @@ const FavouriteCard = ({ appID, uid }) => {
             {price_overview && <p>Price: {priceFormatter(price_overview)}</p>}
             <small>{appID}</small>
           </div>
-          <button className={styles.favButton}>
+          <button className={styles.favButton} onClick={removeFavourite}>
             <FontAwesomeIcon
               icon={faHeartSolid}
               className={styles.favouriteIcon}
               size="3x"
             />
-
           </button>
         </div>
       ) : (
-        <div className={styles.card}>Loading...</div>
+        <div className={styles.card}>
+          <Image
+            src={placeholder}
+            alt="Favourite Card"
+            objectFit="cover"
+            width={350}
+            height={175}
+            placeholder={blur}
+            className={`${styles.image} ${loadingStyles.ld} ${loadingStyles["ld-fade"]}`}
+          />
+          Loading...
+        </div>
       )}
     </>
   );

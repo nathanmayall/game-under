@@ -1,11 +1,12 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/components/*": ["components/*"],
-        "@/controllers/*": ["controllers/*"],
-        "@/styles/*": ["styles/*"],
-        "@/utils/*": ["utils/*"],
-      }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/controllers/*": ["controllers/*"],
+      "@/styles/*": ["styles/*"],
+      "@/utils/*": ["utils/*"],
+      "@/public/*": ["public/*"]
     }
   }
+}
