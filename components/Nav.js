@@ -55,11 +55,17 @@ const Nav = () => {
         <p></p>
       )}
       {user && (
-        <div className={styles.imageWrapper}>
+        <div className={styles.navImage}>
           <Link href={`/me`} passHref>
-            <div>
-              <Image src={user.photoURL} height={75} width={75} alt="" />
-            </div>
+            <a>
+              <Image
+                src={user.photoURL}
+                height={75}
+                width={75}
+                alt=""
+                className={styles.imageWrapper}
+              />
+            </a>
           </Link>
         </div>
       )}
