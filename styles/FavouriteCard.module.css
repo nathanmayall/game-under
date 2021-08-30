@@ -38,15 +38,19 @@
   text-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   font-size: xx-large;
 }
-@media (max-width: 400px) {
-  .favoriteIcon {
-    font-size: medium;
+@media screen and (max-width: 400px) {
+  .favouriteIcon {
+    font-size: 2rem;
+  }
+
+  .favButton {
+    margin-right: 0 !important;
   }
 }
 
 .favButton {
   padding: 0.5rem 1rem;
-  margin-right: 2rem;
+  margin-right: 1.5rem;
   border: 2px solid rgb(196, 79, 79, 0.5);
   border-radius: 0.5rem;
 }

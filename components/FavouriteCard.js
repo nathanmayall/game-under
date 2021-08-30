@@ -71,17 +71,20 @@ const FavouriteCard = ({ appID, uid }) => {
               <Image
                 src={header_image}
                 alt="Favourite Card"
-                layout="intrinsic"
                 objectFit=""
                 width={350}
                 height={175}
                 placeholder={blur}
-                className={styles.imagePlaceHolder}
+                className={styles.image}
               />
             </a>
           </Link>
           <div className={styles.text}>
-            <h2>{name}</h2>
+            <Link href={`/games/${appID}`} passHref>
+              <a>
+                <h2>{name}</h2>
+              </a>
+            </Link>
             {price_overview && <p>Price: {priceFormatter(price_overview)}</p>}
             <small>{appID}</small>
           </div>
@@ -101,7 +104,7 @@ const FavouriteCard = ({ appID, uid }) => {
             width={350}
             height={175}
             placeholder={blur}
-            className={`${styles.image} ${loadingStyles.ld} ${loadingStyles["ld-fade"]}`}
+            className={`${styles.imagePlaceHolder} ${loadingStyles.ld} ${loadingStyles["ld-fade"]}`}
           />
           Loading...
         </div>
