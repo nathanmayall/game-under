@@ -30,11 +30,9 @@ const Nav = () => {
     <nav className={styles.navBar}>
       <div className={styles.navAuth}>
         {user ? (
-          <>
-            <button className={styles.redButton} onClick={() => auth.signOut()}>
-              Sign Out
-            </button>
-          </>
+          <button className={styles.redButton} onClick={() => auth.signOut()}>
+            Sign Out
+          </button>
         ) : (
           <button className={styles.greenButton} onClick={signInWithGoogle}>
             Sign In

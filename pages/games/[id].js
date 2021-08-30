@@ -27,7 +27,6 @@ const GamesPage = ({ game, error }) => {
   const {
     header_image,
     name,
-    short_description,
     detailed_description,
     developers,
     publishers,
