@@ -44,6 +44,12 @@ function MyApp({ Component, pageProps }) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <script
+          async
+          defer
+          data-domain="gameunder.store"
+          src="https://stats.nathanmayall.com/js/plausible.js"
+        ></script>
       </Head>
       <Nav />
       <Component {...pageProps} />
