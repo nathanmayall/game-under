@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }) {
           defer
           data-domain="gameunder.store"
           src="https://stats.nathanmayall.com/js/plausible.js"
-        ></script>
+        />
       </Head>
       <Nav />
       <Component {...pageProps} />
