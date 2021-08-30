@@ -44,6 +44,18 @@ class MyDocument extends Document {
             src="https://static.cloudflareinsights.com/beacon.min.js"
             data-cf-beacon='{"token": "9802bf5deb2b4e01a2a1c8aca785c761"}'
           ></script>
+          <meta property="og:title" content="GameUnder" />
+          <meta property="og:site_name" content="GameUnder.store" />
+          <meta property="og:url" content="https://gameunder.store" />
+          <meta
+            property="og:description"
+            content="A site to compare video game prices across a variety of markets."
+          />
+          <meta property="og:type" content="product" />
+          <meta
+            property="og:image"
+            content="https://gameunder.store/_next/image?url=https%3A%2F%2Fsteamcdn-a.akamaihd.net%2Fsteam%2Fapps%2F292030%2Fheader.jpg%3Ft%3D1598535144&w=640&q=75"
+          />
         </Head>
         <body>
           <Main />
