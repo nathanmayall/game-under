@@ -38,12 +38,17 @@ const Nav = () => {
             Sign In
           </button>
         )}
-        <p>Welcome, {user ? userFirstName : "Gamer"}</p>
+        <p className={styles.welcome}>
+          Welcome, {user ? userFirstName : "Gamer"}
+        </p>
       </div>
       {router.pathname !== "/" ? (
         <div className={styles.title}>
           <Link href={"/"} passHref>
-            <h1>Game-Under</h1>
+            <h1>
+              G<span className={styles.mobileTitle}>ame-</span>U
+              <span className={styles.mobileTitle}>nder</span>
+            </h1>
           </Link>
         </div>
       ) : (
