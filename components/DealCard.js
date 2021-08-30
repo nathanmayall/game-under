@@ -10,15 +10,13 @@ const DealCard = ({ deal }) => {
 
   return (
     <div className={styles.container}>
-      <div>
-        {normalPrice === salePrice ? (
-          <p>${normalPrice}</p>
-        ) : (
-          <p>
-            <del>${normalPrice}</del> ${salePrice}!
-          </p>
-        )}
-      </div>
+      {normalPrice === salePrice ? (
+        <p>${normalPrice}</p>
+      ) : (
+        <p>
+          <del>${normalPrice}</del> ${salePrice}!
+        </p>
+      )}
       <p>{storeName}</p>
       <Link href={dealLink} passHref>
         <a target="_blank">

@@ -1,11 +1,14 @@
 .container {
   width: 75%;
-  display: flex;
+  display: grid;
   background-color: white;
   padding: 0.5rem 1rem;
+  grid-template-rows: auto; /* key rule */
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-between;
+  justify-items: center;
+  align-content: space-between;
   align-items: center;
-  align-content: center;
   color: black;
   margin: 1rem;
   border-radius: 0.5rem;
