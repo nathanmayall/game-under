@@ -36,11 +36,11 @@
 .favouriteIcon {
   color: red;
   text-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  font-size: xx-large;
 }
 @media (max-width: 400px) {
   .favoriteIcon {
-    width: 30px !important;
-    height: auto;
+    font-size: medium;
   }
 }
 

@@ -40,7 +40,7 @@ const SearchBar = ({ search }) => {
             .get();
 
           if (snapshot.empty) {
-            setResults([])
+            setResults([]);
             return;
           }
           const resultsArray = [];
@@ -65,21 +65,23 @@ const SearchBar = ({ search }) => {
 
   return (
     <div className={styles.container}>
-      <input
-        type="text"
-        placeholder="Save me some coins"
-        value={gameSearch}
-        onChange={(e) => setGameSearch(e.target.value)}
-        className={styles.input}
-        onSubmit={() => router.push(`/search?gameSearch=${gameSearch}`)}
-        onKeyPress={handleKeyPress}
-      />
-      <span
-        onClick={() => router.push(`/search?gameSearch=${gameSearch}`)}
-        className={styles.icon}
-      >
-        <FontAwesomeIcon icon={faSearch} />
-      </span>
+      <div>
+        <input
+          type="text"
+          placeholder="Save me some coins"
+          value={gameSearch}
+          onChange={(e) => setGameSearch(e.target.value)}
+          className={styles.input}
+          onSubmit={() => router.push(`/search?gameSearch=${gameSearch}`)}
+          onKeyPress={handleKeyPress}
+        />
+        <span
+          onClick={() => router.push(`/search?gameSearch=${gameSearch}`)}
+          className={styles.icon}
+        >
+          <FontAwesomeIcon icon={faSearch} />
+        </span>
+      </div>
       {results.length > 0 && router.pathname === "/" ? (
         <>
           <div className={styles.results}>

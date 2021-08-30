@@ -89,7 +89,6 @@ const FavouriteCard = ({ appID, uid }) => {
             <FontAwesomeIcon
               icon={faHeartSolid}
               className={styles.favouriteIcon}
-              size="3x"
             />
           </button>
         </div>

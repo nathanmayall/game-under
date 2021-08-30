@@ -11,9 +11,9 @@
 }
 
 .icon {
-  position: absolute;
-  right: 5%;
-  top: 50%;
+  position: relative;
+  left: 90%;
+  bottom: 2rem;
   transform: translateY(-50%);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
