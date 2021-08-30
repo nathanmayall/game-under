@@ -21,35 +21,6 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>GameUnder</title>
-        <meta
-          name="description"
-          content="It's Game Over to paying rip-off Prices!"
-        />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <script
-          async
-          defer
-          data-domain="gameunder.store"
-          src="https://stats.nathanmayall.com/js/plausible.js"
-        />
       </Head>
       <Nav />
       <Component {...pageProps} />
