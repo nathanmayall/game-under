@@ -29,8 +29,7 @@
 }
 
 .description {
-  /* height: 10vh; */
-  overflow: hidden;
+  margin: 0.5rem;
 }
 
 .headerImage {
@@ -67,4 +66,27 @@
 .noDeal div:hover {
   box-shadow: 0 8px 18px 0 rgba(31, 38, 135, 0.37);
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .description {
+    font-size: medium;
+  }
+
+  .description ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .description,
+  .description * {
+    max-width: 98vw;
+    height: auto;
+  }
+  .main {
+    padding: 1rem;
+  }
+  .main h1,
+  .main h3 {
+    padding-left: 1rem;
+  }
 }

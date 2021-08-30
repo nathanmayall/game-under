@@ -127,13 +127,12 @@ const GamesPage = ({ game, error }) => {
       <div>
         {price_overview && <h1>Steam: {priceFormatter(price_overview)}</h1>}
         <h3>Description:</h3>
-        <div className={styles.description}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(detailed_description),
-            }}
-          />
-        </div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(detailed_description),
+          }}
+          className={styles.description}
+        />
       </div>
       {developers && (
         <div className={styles.developers}>

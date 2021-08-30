@@ -1,5 +1,5 @@
 .container {
-  width: 75%;
+  width: 60%;
   margin: auto;
   position: relative;
 }
@@ -43,4 +43,10 @@
   background-color: darkgray;
   transition: all;
   transition-duration: 150ms;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    width: 100%;
+  }
 }

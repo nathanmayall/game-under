@@ -43,6 +43,11 @@
     font-size: 2rem;
   }
 
+  .imagePlaceHolder,
+  .image {
+    display: none !important;
+  }
+
   .favButton {
     margin-right: 0 !important;
   }

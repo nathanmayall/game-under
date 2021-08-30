@@ -14,7 +14,7 @@ const gameCard = ({ game }) => {
     <Link href={`/games/${steamID}`} passHref>
       <div className={styles.card}>
         <h2>{name}</h2>
-        <p>Price: {is_free ? "Free ✔!" : formattedPrice}</p>
+        <h3>Price: {is_free ? "Free ✔!" : formattedPrice}</h3>
         <small>Steam ID: {steamID}</small>
       </div>
     </Link>
