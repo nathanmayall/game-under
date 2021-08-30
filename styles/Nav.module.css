@@ -108,4 +108,7 @@
   .navImage {
     padding-right: 1rem;
   }
+  .navAuth {
+    margin-left: 1rem;
+  }
 }
