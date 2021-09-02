@@ -14,7 +14,6 @@ export default function Home({ games, stats }) {
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>Game-Under</h1>
-
       <p className={styles.description}>
         It&apos;s <code className={styles.code}>GameOver</code> to paying ripoff
         prices
