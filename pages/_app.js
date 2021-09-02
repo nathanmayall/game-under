@@ -1,13 +1,12 @@
-import { config } from "@fortawesome/fontawesome-svg-core";
+import Head from "next/head";
+import axios from "axios";
+
+import "firebase/auth";
+import "firebase/analytics";
 
 import "@/styles/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-
-import "firebase/analytics";
-import "firebase/auth";
-import Head from "next/head";
-
-import axios from "axios";
+import { config } from "@fortawesome/fontawesome-svg-core";
 
 import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
