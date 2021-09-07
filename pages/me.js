@@ -66,7 +66,7 @@ const Me = () => {
         {error && (
           <div className={styles.main}>Something went wrong, {error}</div>
         )}
-        {!user && <div className={styles.main}>You must be logged in to view this page.</div>}
+        {!loading && !user && <div className={styles.main}>You must be logged in to view this page.</div>}
       </div>
     );
   }
