@@ -39,7 +39,7 @@ const Me = () => {
     }
     return;
   };
-  if (!loading || !error) {
+  if ((!loading || !error) && user) {
     return (
       <div className={styles.main}>
         {!favLoading && favourites.length > 0 ? (
@@ -66,6 +66,7 @@ const Me = () => {
         {error && (
           <div className={styles.main}>Something went wrong, {error}</div>
         )}
+        {!user && <div className={styles.main}>You must be logged in to view this page.</div>}
       </div>
     );
   }
