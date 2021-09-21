@@ -20,7 +20,9 @@ import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
 import DealCard from "@/components/DealCard";
 
-const GamesPage = ({ game, error }) => {
+const GamesPage = ({ result, status }) => {
+  if (status === 404) return <div className={styles.main}>Game not found</div>;
+
   const [user] = useAuthState(auth);
   const [favourite, setFavourite] = useState(false);
 
@@ -34,7 +36,7 @@ const GamesPage = ({ game, error }) => {
     appID,
     price_overview,
     release_date,
-  } = game.result;
+  } = result;
 
   useEffect(() => {
     if (user) getFavourite(user);
@@ -82,7 +84,6 @@ const GamesPage = ({ game, error }) => {
       setFavourite(false);
     });
   };
-
   return (
     <div className={styles.main}>
       <Image
@@ -178,13 +179,17 @@ export const getServerSideProps = async (context) => {
     if (!context.params.id) return;
     const appID = context.params.id;
     const { data: game } = await axios(`/api/games/${appID}`);
+
+    const result = game.result;
+
     return {
-      props: { game },
+      props: { result },
     };
   } catch (error) {
-    console.log(error);
+    const status = error.response.status;
+
     return {
-      props: { error: "Something Went Wrong" },
+      props: { status },
     };
   }
 };

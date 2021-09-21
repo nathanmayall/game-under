@@ -15,6 +15,8 @@ const findOneGame = async (req, res) => {
         `https://api.steamapis.com/market/app/${gameId}?api_key=${process.env.STEAM_API_KEY}`
       );
 
+      if (result.error) console.log = result.error;
+
       //retrieve deal results
       const { data: deals } = await axios.get(
         `https://www.cheapshark.com/api/1.0/deals?steamAppID=${gameId}&limit=60&exact=0`
@@ -35,7 +37,6 @@ const findOneGame = async (req, res) => {
         res.status(200).send({ result, deals });
       }
     } catch (err) {
-      console.log(err);
       res.status(404).send();
     }
   } catch (error) {
